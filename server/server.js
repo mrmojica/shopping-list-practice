@@ -11,15 +11,11 @@ app.use('/', express.static('build'));
 
 
 
-
-
-
-
 var counter = Data.length;
 app.get('/data', function(req, res) {
 	//retrieving data.json file __dirname + path
 	console.log(Data);
-	res.json(Data)
+	res.send(Data)
 
 
 });
