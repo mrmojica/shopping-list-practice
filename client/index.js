@@ -31,7 +31,7 @@ var App = React.createClass({
 
 		return (
 			<div>
-				<Form onFormSubmit={this.onFormSubmit} />
+				<Form formSubmit={this.onFormSubmit} />
 				<ul>
 					{list}
 				</ul>

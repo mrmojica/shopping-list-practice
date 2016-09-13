@@ -6,7 +6,7 @@ var Form = React.createClass({
 	onSubmit: function(e){
 		e.preventDefault();
 		var item = this.refs.input.value;
-		this.props.onFormSubmit(item);
+		this.props.formSubmit(item);
 		item = '';
 	},
 
