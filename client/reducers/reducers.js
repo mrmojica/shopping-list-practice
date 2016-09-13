@@ -1,4 +1,5 @@
 var actions = require('../actions/actions');
+var update = require('react-addons-update');
 
 var initialState = {
 	todo:[]
@@ -17,6 +18,24 @@ var reducer = function(state, action) {
 		console.log('error', action.error)
 		return {error: action.error};
 	}
+
+	else if(action.type === actions.FETCH_ADDITEM_SUCCESS) {
+		console.log('addItem success data', action.item)
+		var newState = update(state, {
+			todo: {$push: action.item}
+		});
+
+		return newState;
+	}
+
+	else if(action.type === actions.FETCH_ADDITEM_ERROR) {
+		console.log('error', action.error)
+		return {error: action.error};
+	}
+
+
+
+
 
 	return state;
 

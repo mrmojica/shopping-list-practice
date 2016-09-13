@@ -12,6 +12,7 @@ app.use('/', express.static('build'));
 
 
 var counter = Data.length;
+
 app.get('/data', function(req, res) {
 	//retrieving data.json file __dirname + path
 	console.log(Data);
@@ -32,38 +33,37 @@ app.post('/data', function(req,res) {
 
 });
 
+function EditItem(req, res, callback) {
+	for(var i = 0; i < Data.length; i++) {
+		if(Data[i].id == req.params.id) {
+			callback(i)
+		} 
+	}
+	res.status(200).json({});
+}
+
 app.put('/data/:id', function(req, res) {
-if(!req.body.item || !req.params.id) {
-	res.sendStatus(404);
-}
+	if(!req.body.item || !req.params.id) {
+		res.sendStatus(404);
+	}
 
-for(var i = 0; i < Data.length; i++) {
-	if(Data[i].id == req.params.id) {
+	EditItem(req, res, function(i) {
 		Data[i].item = req.body.item;
-	} 
-
-}
-
-res.status(200).json({});
-
+	});
+		
 
 });
 
 
 app.delete('/data/:id', function(req, res) {
 
-if(!Data[req.params.id]) {
-	return res.sendStatus(404);
-}
-
-for (var i = 0; i < Data.length; i++) {
-	if(Data[i].id == req.params.id) {
-		Data.splice(i, 1);
+	if(!Data[req.params.id]) {
+		return res.sendStatus(404);
 	}
 
-};
-
-res.status(200).json({});
+	EditItem(req, res, function(i) {
+			Data.splice(i, 1);
+	});
 
 
 });

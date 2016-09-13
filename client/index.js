@@ -4,7 +4,7 @@ var connect = require('react-redux').connect;
 var store = require('./store');
 var Provider = require('react-redux').Provider;
 var actions = require('./actions/actions');
-
+var Form = require('./components/form');
 
 
 var App = React.createClass({
@@ -13,6 +13,10 @@ var App = React.createClass({
 		console.log('before dispatch', this.props.data);
 		this.props.dispatch(actions.fetchData());
 		console.log('after dispatch', this.props.data);
+	},
+	onFormSubmit: function(item) {
+		this.props.dispatch(actions.addItem(item));
+		this.props.dispatch(actions.fetchData());
 	},
 
 
@@ -27,6 +31,7 @@ var App = React.createClass({
 
 		return (
 			<div>
+				<Form onFormSubmit={this.onFormSubmit} />
 				<ul>
 					{list}
 				</ul>
